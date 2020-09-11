@@ -1,0 +1,7 @@
+*~
+~*
+*.swp
+build
+.vscode
+.venv*
+__pycache__
