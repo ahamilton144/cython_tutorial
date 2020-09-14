@@ -5,13 +5,14 @@ from Model cimport Model
 cdef class main_cy_numpy():
   cdef public Model model
 
-  def __init__(self):
+  def __init__(self, int years, bint plot, int seed):
     # initialize model
-    model = Model()
+    self.model = Model(years = years, plot = plot, seed = seed)
 
     # run simulation
-    model.run_sim()
+    self.model.tot_storage = self.model.run()
 
     # plot results
-    model.plot_results()
+    if self.model.plot:
+      self.model.plot_results()
 

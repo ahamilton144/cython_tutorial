@@ -1,13 +1,18 @@
 ### Model class for running simulation
 import matplotlib.pyplot as plt
+import random
 import numpy as np
 from Reservoir import Reservoir
 
 class Model():
-  def __init__(self):
-    self.years = 5
+  def __init__(self, years, plot, seed):
+    # length of simulation (no leap years)
+    self.years = years
     self.days = 365 * self.years
-    # self.step_output_per_reservoir = 7
+    # boolean for whether to plot
+    self.plot = plot
+    # random seed
+    random.seed(seed)
 
     ### set up upper reservoir
     # inflow params in terms of sinusoid, (amplitude, phase, shift, noise). units = AF/day
@@ -34,19 +39,20 @@ class Model():
     self.reservoir_lower = Reservoir('lower', inflow_params, min_flow_params, demand_params, storage_params)
 
     ### set up data storage
-    self.reservoir_list = [self.reservoir_lower, self.reservoir_upper]
-    self.num_reservoirs = len(self.reservoir_list)
-
+    reservoir_list = [self.reservoir_upper, self.reservoir_lower]
+    num_reservoirs = len(reservoir_list)
     self.num_step_outputs = 7
     
-    self.output = np.zeros((self.num_reservoirs * self.num_step_outputs, self.days + 1))
-    for i, reservoir in enumerate(self.reservoir_list):
-      self.output[i * self.num_step_outputs + self.num_step_outputs - 1, 0] = reservoir.storage
+    self.output = np.zeros((num_reservoirs * self.num_step_outputs, self.days + 1))
+    for i in range(len(reservoir_list)):
+      self.output[i * self.num_step_outputs + self.num_step_outputs - 1, 0] = reservoir_list[i].storage
+
 
   def run(self):
     for t in range(1, self.days + 1):
+      t_run = t - 1
       # step upper
-      (inflow, upstream_release, min_flow, demand, release, delivery, storage) = self.reservoir_upper.step(t, 0.)
+      (inflow, upstream_release, min_flow, demand, release, delivery, storage) = self.reservoir_upper.step(t_run, 0.)
       self.output[0, t] = inflow
       self.output[1, t] = upstream_release
       self.output[2, t] = min_flow
@@ -55,14 +61,18 @@ class Model():
       self.output[5, t] = delivery
       self.output[6, t] = storage
 
-      (inflow, upstream_release, min_flow, demand, release, delivery, storage) = self.reservoir_lower.step(t, release)
-      self.output[self.num_step_outputs, t] = inflow
-      self.output[self.num_step_outputs + 1, t] = upstream_release
-      self.output[self.num_step_outputs + 2, t] = min_flow
-      self.output[self.num_step_outputs + 3, t] = demand
-      self.output[self.num_step_outputs + 4, t] = release
-      self.output[self.num_step_outputs + 5, t] = delivery
-      self.output[self.num_step_outputs + 6, t] = storage
+      (inflow, upstream_release, min_flow, demand, release, delivery, storage) = self.reservoir_lower.step(t_run, release)
+      self.output[7, t] = inflow
+      self.output[8, t] = upstream_release
+      self.output[9, t] = min_flow
+      self.output[10, t] = demand
+      self.output[11, t] = release
+      self.output[12, t] = delivery
+      self.output[13, t] = storage
+
+    # return total storage last time step to make sure versions are equivalent
+    return self.output[6, -1] + self.output[-1, -1]
+
 
   def plot_results(self):
     t = np.arange(self.days + 1)

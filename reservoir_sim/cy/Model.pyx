@@ -1,14 +1,20 @@
 ### Model class for running simulation
 import matplotlib.pyplot as plt
 import numpy as np
+import random
 from Reservoir cimport Reservoir
 
 cdef class Model():
-  def __init__(self):
-    self.years = 5
+  def __init__(self, int years, bint plot, int seed):
+    # length of simulation (no leap years)
+    self.years = years
     self.days = 365 * self.years
-    # self.step_output_per_reservoir = 7
-
+    # boolean for whether to plot
+    self.plot = plot
+    # random seed
+    np.random.seed(seed)
+    random.seed(seed)
+    
     ### set up upper reservoir
     # inflow params in terms of sinusoid, (amplitude, phase, shift, noise). units = AF/day
     inflow_params = (300., 0., 500., 20.)
@@ -34,7 +40,7 @@ cdef class Model():
     self.reservoir_lower = Reservoir('lower', inflow_params, min_flow_params, demand_params, storage_params)
 
     ### set up data storage
-    self.reservoir_list = [self.reservoir_lower, self.reservoir_upper]
+    self.reservoir_list = [self.reservoir_upper, self.reservoir_lower]
     self.output = {}
     for reservoir in self.reservoir_list:
       self.output[reservoir.name] = {}
@@ -46,11 +52,12 @@ cdef class Model():
       self.output[reservoir.name]['delivery'] = []
       self.output[reservoir.name]['storage'] = [reservoir.storage]
 
-  cdef void run_sim(self):
+  cdef double run(self):
     cdef double t, inflow, upstream_release, min_flow, demand, release, delivery, storage
-    for t in np.arange(self.days, dtype=np.double):
-      # step upper
-      (inflow, upstream_release, min_flow, demand, release, delivery, storage) = self.reservoir_upper.step(t, 0.)
+    for t in range(self.days):
+      t_run = float(t)
+
+      (inflow, upstream_release, min_flow, demand, release, delivery, storage) = self.reservoir_upper.step(t_run, 0.)
       self.output['upper']['inflow'].append(inflow)
       self.output['upper']['upstream_release'].append(upstream_release)
       self.output['upper']['min_flow'].append(min_flow)
@@ -59,7 +66,7 @@ cdef class Model():
       self.output['upper']['delivery'].append(delivery)
       self.output['upper']['storage'].append(storage)
 
-      (inflow, upstream_release, min_flow, demand, release, delivery, storage) = self.reservoir_lower.step(t, release)
+      (inflow, upstream_release, min_flow, demand, release, delivery, storage) = self.reservoir_lower.step(t_run, release)
       self.output['lower']['inflow'].append(inflow)
       self.output['lower']['upstream_release'].append(upstream_release)
       self.output['lower']['min_flow'].append(min_flow)
@@ -67,6 +74,10 @@ cdef class Model():
       self.output['lower']['release'].append(release)
       self.output['lower']['delivery'].append(delivery)
       self.output['lower']['storage'].append(storage)
+
+    # return total storage last time step to make sure versions are equivalent
+    return self.output['upper']['storage'][-1] + self.output['lower']['storage'][-1]
+
 
   def plot_results(self):
     t = np.arange(self.days)

@@ -4,10 +4,14 @@ import numpy as np
 from Reservoir import Reservoir
 
 class Model():
-  def __init__(self):
-    self.years = 5
+  def __init__(self, years, plot, seed):
+    # length of simulation (no leap years)
+    self.years = years
     self.days = 365 * self.years
-    # self.step_output_per_reservoir = 7
+    # boolean for whether to plot
+    self.plot = plot
+    # random seed
+    np.random.seed(seed)
 
     ### set up upper reservoir
     # inflow params in terms of sinusoid, (amplitude, phase, shift, noise). units = AF/day
@@ -34,7 +38,7 @@ class Model():
     self.reservoir_lower = Reservoir('lower', inflow_params, min_flow_params, demand_params, storage_params)
 
     ### set up data storage
-    self.reservoir_list = [self.reservoir_lower, self.reservoir_upper]
+    self.reservoir_list = [self.reservoir_upper, self.reservoir_lower]
     self.output = {}
     for reservoir in self.reservoir_list:
       self.output[reservoir.name] = {}
@@ -66,6 +70,9 @@ class Model():
       self.output['lower']['release'].append(release)
       self.output['lower']['delivery'].append(delivery)
       self.output['lower']['storage'].append(storage)
+
+    # return total storage last time step to make sure versions are equivalent
+    return self.output['upper']['storage'][-1] + self.output['lower']['storage'][-1]
 
   def plot_results(self):
     t = np.arange(self.days)

@@ -7,7 +7,7 @@ cdef class Reservoir():
   cdef:
     public str name
 
-    public double inflow_amp, inflow_phase, inflow_shift, inflow_noise, min_flow_amp, min_flow_phase, min_flow_shift, capacity, storage
+    public double inflow_amp, inflow_phase, inflow_shift, inflow_noise, min_flow_amp, min_flow_phase, min_flow_shift, capacity, storage, days_to_radians
 
     public Demand demand
 

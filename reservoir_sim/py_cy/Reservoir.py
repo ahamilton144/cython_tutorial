@@ -1,5 +1,6 @@
 ### Reservoir class - pure Python
-import numpy as np
+from random import gauss
+from math import pi, sin
 from Demand import Demand
 
 class Reservoir():
@@ -13,16 +14,18 @@ class Reservoir():
     self.capacity, self.storage = storage_params
     # set up demand object
     self.demand = Demand(name, demand_params)
+    # save 2pi/365 to save conversion time
+    self.days_to_radians = 2. * pi / 365.
 
   ### inflow function
   def inflow_t(self, t):
-    noise = np.random.normal(0, self.inflow_noise, 1)[0]
-    inflow_t = self.inflow_amp * np.sin((t - self.inflow_phase)  * 2. * np.pi / 365.) + self.inflow_shift + noise
+    noise = gauss(0., self.inflow_noise)
+    inflow_t = self.inflow_amp * sin((t - self.inflow_phase)  * self.days_to_radians) + self.inflow_shift + noise
     return inflow_t
 
   ### min flow function
   def min_flow_t(self, t):
-    min_flow_t = self.min_flow_amp * np.sin((t - self.min_flow_phase)  * 2. * np.pi / 365.) + self.min_flow_shift
+    min_flow_t = self.min_flow_amp * sin((t - self.min_flow_phase)  * self.days_to_radians) + self.min_flow_shift
     return min_flow_t
 
   ### step reservoir another day

@@ -1,5 +1,6 @@
 ### Reservoir class - pure Python
-import numpy as np
+from random import gauss
+from math import pi, sin
 from Demand cimport Demand
 
 cdef class Reservoir():
@@ -13,20 +14,25 @@ cdef class Reservoir():
     self.capacity, self.storage = storage_params
     # set up demand object
     self.demand = Demand(name, demand_params)
+    # save 2pi/365 as double to save conversion time
+    self.days_to_radians = 2. * pi / 365.
 
   ### inflow function
   cdef double inflow_t(self, double t):
-    cdef double noise, inflow_t
+    cdef double noise, inflow_t, sin_t
     
-    noise = np.random.normal(0, self.inflow_noise, 1)[0]
-    inflow_t = self.inflow_amp * np.sin((t - self.inflow_phase)  * 2. * np.pi / 365.) + self.inflow_shift + noise
+    noise = gauss(0., self.inflow_noise)
+    sin_t = sin((t - self.inflow_phase) * self.days_to_radians)
+    inflow_t = self.inflow_amp * sin_t + self.inflow_shift + noise
     return inflow_t
 
   ### min flow function
   cdef double min_flow_t(self, double t):
-    cdef min_flow_t
+    cdef double min_flow_t, sin_t
 
-    min_flow_t = self.min_flow_amp * np.sin((t - self.min_flow_phase)  * 2. * np.pi / 365.) + self.min_flow_shift
+    sin_t = sin((t - self.min_flow_phase) * self.days_to_radians)
+    min_flow_t = self.min_flow_amp * sin_t + self.min_flow_shift
+    
     return min_flow_t
 
   ### step reservoir another day

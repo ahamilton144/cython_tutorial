@@ -3,11 +3,13 @@
 from Model import Model
 
 # initialize model
-model = Model()
+model = Model(years = 100, plot = False, seed = 101)
 
 # run simulation
-model.run()
+tot_storage = model.run()
+print(tot_storage)
 
 # plot results
-model.plot_results()
+if model.plot:
+  model.plot_results()
 
