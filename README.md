@@ -27,7 +27,7 @@ You can Cythonize files 2, 3, 5, & 6 using the command ``run_setups.sh python`` 
 Then you can time all 6 versions using the command ``python time_versions.py`` (or ``python3``). Try changing ``n`` to a larger number, say 50, to see the important differences between the int and double versions.
 
 ## Reservoir simulation example
-The reservoir simulation example is a more complex, object-oriented model. Although very simple compared to real water resources models, it's structure still reduces the benefits of Cython when compared to the tight numerical loop of the Fibonacci example. It also requires us to learn about "Extension types", which are Cythonized, compiled classes.
+The reservoir simulation example is a more complex, object-oriented model. Although very simple compared to real water resources models, its structure still reduces the benefits of Cython when compared to the tight numerical loop of the Fibonacci example. It also requires us to learn about "Extension types", which are Cythonized, compiled classes.
 
 I have written 7 different versions.
 
