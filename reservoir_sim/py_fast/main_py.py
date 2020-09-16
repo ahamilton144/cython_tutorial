@@ -1,9 +1,8 @@
 ### main file to run simulation
-
 from Model import Model
 
 # initialize model
-model = Model(years = 100, plot = True, seed = 101)
+model = Model(years = 5, plot = True, seed = 101)
 
 # run simulation
 tot_storage = model.run()

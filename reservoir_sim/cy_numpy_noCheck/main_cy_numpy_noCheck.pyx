@@ -1,3 +1,5 @@
+# cython: profile=True
+
 ### main file to run simulation
 
 from Model cimport Model

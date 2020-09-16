@@ -1,3 +1,5 @@
+# cython: profile=True
+
 ### Function for finding n'th Fibonacci number. Copied from (Kurt W. Smith, "Cython", O'Reilly Media Inc., 2015).
 ### Typed Cython version
 

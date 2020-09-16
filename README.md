@@ -9,6 +9,8 @@ For more information, as always, see the [Cython docs](https://cython.readthedoc
 I also highly recommend the book ["Cython", by Kurt W. Smith](https://www.oreilly.com/library/view/cython/9781491901731/) for more details and examples. It also looks like the author also has a [tutorial](https://github.com/kwmsmith/scipy-2017-cython-tutorial), but I haven't tried it yet.
 
 Lastly, if you want to write more efficient pure Python prior to diving into Cython, ["High Performance Python" by Micha Gorelick and Ian Ozsvald](https://www.oreilly.com/library/view/high-performance-python/9781492055013/) is a good resource.
+## Jupyter tutorial
+See the Jupyter notebook ``tutorial.ipynb`` for more details on the two examples below.
 
 ## Fibonacci example
 The first example is a simple function that will calculate the n'th Fibonacci number. I have written six different versions of the function:

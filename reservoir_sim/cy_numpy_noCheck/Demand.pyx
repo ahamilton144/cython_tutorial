@@ -1,3 +1,5 @@
+# cython: profile=True
+
 ### Demand class - pure Python
 from random import gauss
 from math import pi, sin

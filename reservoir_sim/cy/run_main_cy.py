@@ -2,4 +2,4 @@
 
 from main_cy import main_cy
 
-main_cy()
+main_cy(years = 5, plot = True, seed = 101)

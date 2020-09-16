@@ -3,7 +3,7 @@
 from Model import Model
 
 # initialize model
-model = Model(years = 100, plot = False, seed = 101)
+model = Model(years = 5, plot = False, seed = 101)
 
 # run simulation
 tot_storage = model.run()
