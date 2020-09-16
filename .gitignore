@@ -5,3 +5,13 @@ build
 .vscode
 .venv*
 __pycache__
+.ipynb*
+*/*.so
+*/*.pyd
+*/*.c
+*/*.html
+*/*/*.so
+*/*/*.pyd
+*/*/*.c
+*/*/*.html
+*/*/*.txt
