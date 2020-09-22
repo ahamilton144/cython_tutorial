@@ -9,6 +9,12 @@ For more information, as always, see the [Cython docs](https://cython.readthedoc
 I also highly recommend the book ["Cython", by Kurt W. Smith](https://www.oreilly.com/library/view/cython/9781491901731/) for more details and examples. It also looks like the author also has a [tutorial](https://github.com/kwmsmith/scipy-2017-cython-tutorial), but I haven't tried it yet.
 
 Lastly, if you want to write more efficient pure Python prior to diving into Cython, ["High Performance Python" by Micha Gorelick and Ian Ozsvald](https://www.oreilly.com/library/view/high-performance-python/9781492055013/) is a good resource.
+
+## Requirements
+You will need a working Python 3 environment (preferably 3.6+ to avoid dependency issues) with NumPy, Cython, Matplotlib, and Jupyter.
+
+You will also need the right compiler. OSX and Linux (including WSL) users should already have gcc standard. Windows users will need to download Microsoft Visual Studio 2019 to make sure you have the right compiler. Choose “Desktop development with C++” when it asks which programs you want to install.
+
 ## Jupyter tutorial
 See the Jupyter notebook ``tutorial.ipynb`` for more details on the two examples below.
 
