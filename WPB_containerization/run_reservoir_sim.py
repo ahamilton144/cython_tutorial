@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 ### Need new main file so we can run the cythonized old main file (.pyx)
 
 from reservoir_sim import reservoir_sim
