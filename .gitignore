@@ -15,3 +15,5 @@ __pycache__
 */*/*.c
 */*/*.html
 */*/*.txt
+.idea
+*/\\
