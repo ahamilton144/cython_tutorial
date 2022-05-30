@@ -7,4 +7,4 @@
 #SBATCH -t 00:02:00
 
 module load tacc-singularity
-mpirun singularity run cython_reservoir_0.1.sif run_reservoir_sim.py
+ibrun singularity run cython_reservoir_0.1.sif run_reservoir_sim.py
