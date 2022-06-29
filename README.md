@@ -28,9 +28,9 @@ The first example is a simple function that will calculate the n'th Fibonacci nu
 1. ``fib_py_cy_double.py``: Same as #2, but using doubles.
 1. ``fib_cy_double.py``: Same as #3, but using doubles.
 
-You can Cythonize files 2, 3, 5, & 6 using the command ``run_setups.sh python`` or ``run_setups.sh python3``, depending on the command for Python 3 in your terminal.
+You can Cythonize files 2, 3, 5, & 6 using the command ``python3 setup_fibs.py build_ext --inplace``.
 
-Then you can time all 6 versions using the command ``python time_versions.py`` (or ``python3``). Try changing ``n`` to a larger number, say 50, to see the important differences between the int and double versions.
+Then you can time all 6 versions using the command ``python3 time_versions.py 40``. Try changing 40 to a larger number, say 50, to see the important differences between the int and double versions.
 
 ## Reservoir simulation example
 The reservoir simulation example is a more complex, object-oriented model. Although very simple compared to real water resources models, its structure still reduces the benefits of Cython when compared to the tight numerical loop of the Fibonacci example. It also requires us to learn about "Extension types", which are Cythonized, compiled classes.
@@ -45,4 +45,4 @@ I have written 7 different versions.
 1. ``cy_numpy``: Same as #5, but using NumPy plus memoryviews for storing output data.
 1. ``cy_numpy_noCheck``: Same as #6, but with bounds checking and wraparounds disabled strategically.
 
-You can Cythonize all relevant files and time all six versions using the command ``sh time_versions.sh python`` (or ``python3``). 
+You can Cythonize all relevant files and time all six versions using the command ``sh time_versions.sh python3``. 
