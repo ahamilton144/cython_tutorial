@@ -4,7 +4,7 @@
 
 from Model cimport Model
 
-cdef class main_cy_numpy_noCheck():
+cdef class main():
   cdef public Model model
 
   def __init__(self, int years, bint plot, int seed):

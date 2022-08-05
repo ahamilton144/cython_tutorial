@@ -1,6 +1,6 @@
 # cython: profile=True
 
-### Reservoir class - pure Python
+### Reservoir class , cy_numpy
 from random import gauss
 from math import pi, sin
 from Demand cimport Demand
@@ -39,7 +39,7 @@ cdef class Reservoir():
 
   ### step reservoir another day
   cdef (double, double, double, double, double, double, double) step(self, double t, double upstream_release):
-    cdef double inflow, min_flow, demand, release, delivery 
+    cdef double inflow, min_flow, demand, release, delivery
 
     # get inflow, min_flow, demand based on day of year
     inflow = self.inflow_t(t)
@@ -69,7 +69,7 @@ cdef class Reservoir():
           self.storage = 0.
         else:
           print('This should not be happening')
-    
+
     return (inflow, upstream_release, min_flow, demand, release, delivery, self.storage)
         
 

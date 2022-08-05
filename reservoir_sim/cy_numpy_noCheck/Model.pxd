@@ -15,5 +15,5 @@ cdef class Model():
 
     public Reservoir reservoir_upper, reservoir_lower
   
-  cdef double run(self)
+  cdef double run(self) except *
   

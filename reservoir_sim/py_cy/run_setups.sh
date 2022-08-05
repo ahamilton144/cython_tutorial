@@ -1,1 +1,1 @@
-$i setup.py built_ext --inplace
+python3 setup.py built_ext --inplace

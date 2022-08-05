@@ -1,9 +1,8 @@
 # cython: profile=True
 
-### Demand class - pure Python
+### Demand class - cython
 from random import gauss
 from math import pi, sin
-import random
 
 cdef class Demand():
   def __init__(self, name, demand_params):

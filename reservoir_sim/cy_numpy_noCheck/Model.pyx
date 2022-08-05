@@ -49,7 +49,7 @@ cdef class Model():
     num_reservoirs = len(reservoir_list)
     self.num_step_outputs = 7
     
-    output_np = np.zeros((num_reservoirs * self.num_step_outputs, self.days + 1))
+    output_np = np.empty((num_reservoirs * self.num_step_outputs, self.days + 1))
     self.output = output_np
 
     for i in range(len(reservoir_list)):
@@ -58,12 +58,13 @@ cdef class Model():
 
   @boundscheck(False)
   @wraparound(False)
-  cdef double run(self):
+  cdef double run(self) except *:
     cdef int t
-    cdef double inflow, upstream_release, min_flow, demand, release, delivery, storage
+    cdef double t_run, inflow, upstream_release, min_flow, demand, release, delivery, storage
     for t in range(1, self.days + 1):
       t_run = float(t - 1)
 
+      ## step upper
       (inflow, upstream_release, min_flow, demand, release, delivery, storage) = self.reservoir_upper.step(t_run, 0.)
       self.output[0, t] = inflow
       self.output[1, t] = upstream_release
@@ -73,6 +74,7 @@ cdef class Model():
       self.output[5, t] = delivery
       self.output[6, t] = storage
 
+      ### step lower
       (inflow, upstream_release, min_flow, demand, release, delivery, storage) = self.reservoir_lower.step(t_run, release)
       self.output[7, t] = inflow
       self.output[8, t] = upstream_release

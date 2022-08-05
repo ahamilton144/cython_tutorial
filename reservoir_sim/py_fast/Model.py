@@ -81,10 +81,12 @@ class Model():
 
     fig, ((ax11, ax12, ax13, ax14), (ax21, ax22, ax23, ax24)) = plt.subplots(2, 4, figsize=(12,6))
     # make a little extra space between the subplots
-    fig.subplots_adjust(hspace=0.5)
+    fig.subplots_adjust(hspace=0.2)
+    fig.subplots_adjust(wspace=0.4)
     ax11.plot(t, self.output['upper']['inflow'], c='indianred')
     ax11.plot(t, np.array(self.output['upper']['inflow']) + np.array(self.output['upper']['upstream_release']), c='k')
     ax11.legend(['Inflow', 'w/ UpRel'])
+    ax11.set_ylabel('Upper reservoir')
     ax12.plot(t, self.output['upper']['demand'], c='indianred')
     ax12.plot(t, self.output['upper']['delivery'], c='k')
     ax12.legend(['Demand', 'Deliv'])
@@ -97,6 +99,7 @@ class Model():
     ax21.plot(t, self.output['lower']['inflow'], c='indianred')
     ax21.plot(t, np.array(self.output['lower']['inflow']) + np.array(self.output['lower']['upstream_release']), c='k')
     ax21.legend(['Inflow', 'w/ UpRel'])
+    ax21.set_ylabel('Lower reservoir')
     ax22.plot(t, self.output['lower']['demand'], c='indianred')
     ax22.plot(t, self.output['lower']['delivery'], c='k')
     ax22.legend(['Demand', 'Deliv'])

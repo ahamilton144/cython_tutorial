@@ -1,6 +1,6 @@
 # cython: profile=True
 
-### Reservoir class - pure Python
+### Reservoir class - cython
 from random import gauss
 from math import pi, sin
 from Demand cimport Demand

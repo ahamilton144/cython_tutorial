@@ -1,6 +1,6 @@
 # cython: profile=True
 
-### Demand class - pure Python
+### Demand class - cy_numpy
 from random import gauss
 from math import pi, sin
 import random

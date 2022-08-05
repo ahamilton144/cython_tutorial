@@ -3,7 +3,7 @@ FROM ubuntu:18.04
 
 ### install basics, python3, and modules needed for application
 RUN apt-get update && apt-get upgrade -y && apt-get install -y build-essential zlib1g-dev libjpeg-dev python3-pip openssh-server
-RUN pip3 install Pillow numpy pandas matplotlib cython
+RUN pip3 install Pillow py_numpy pandas matplotlib cython
 
 ### install openMPI version 4.0.5, consistent with Hopper & TheCube
 RUN wget 'https://www.open-mpi.org/software/ompi/v4.0/downloads/openmpi-4.0.5.tar.gz' -O openmpi-4.0.5.tar.gz
